@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>stuhub.com</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #fff;
+  }
+
+  .container {
+    margin-top: 5cm;
+  }
+
+  .like-container {
+    display: inline-block;
+    position: relative;
+  }
+  .photo {
+    width: 6cm;
+    height: 5cm;
+  }
+
+  #likeBtn {
+    width: 4cm;
+    height: 4cm;
+    cursor: pointer;
+  }
+
+  #likeCount {
+    position: absolute;
+    margin-top: -3cm;
+    margin-left: 8cm;
+    font-size: 20px;
+    color: black;
+  }
+
+  #timer {
+    font-size: 18px;
+    margin-top: 20px;
+  }
+  button {
+    margin-left: -8cm;
+  }
+  audio {
+    display: none;
+  }
+</style>
+<body>
+  
+  <!-- Sidebar -->
+<div class="w3-sidebar w3-bar-block w3-border-right" style="display:none" id="mySidebar">
+  <button1 onclick="w3_close()" class="w3-bar-item w3-large">Close &times;</button>
+  <a href="#" class="w3-bar-item w3-button"> disable</a>
+  <a href="#" class="w3-bar-item w3-button">highest score</a>
+  <a href="1.html" class="w3-bar-item w3-button">about</a>
+</div>
+<div class="w3-tea">
+  
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">☰</button>
+  
+
+</div>
+
+  
+  <div class="container">
+    <p id="likeCount">0</p>
+    <div class="like-container">
+      <img id="likeBtn" src="like.png" alt="Heart" class="photo">
+    </div>
+    <div id="timer">Time: 00:00:00</div>
+    
+    <audio autoplay>
+      <source src="your-audio-file.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <script>
+    let likeCount = 0;
+    let startTime = Date.now();
+    let timerInterval;
+
+    document.getElementById("likeBtn").addEventListener("click", function() {
+      likeCount++;
+      updateLikeCount(likeCount);
+    });
+
+    function updateLikeCount(count) {
+      document.getElementById("likeCount").textContent = formatLikeCount(count);
+      updateTimer();
+    }
+
+    function formatLikeCount(count) {
+      if (count < 1000) {
+        return count.toString();
+      } else if (count < 1000000) {
+        return (count / 1000).toFixed(1) + 'K';
+      } else {
+        return (count / 1000000).toFixed(1) + 'M';
+      }
+    }
+
+    function updateTimer() {
+      timerInterval = setInterval(function() {
+        let elapsedTime = Date.now() - startTime;
+        let seconds = Math.floor(elapsedTime / 1000) % 60;
+        let minutes = Math.floor(elapsedTime / (1000 * 60)) % 60;
+        let hours = Math.floor(elapsedTime / (1000 * 60 * 60));
+
+        document.getElementById("timer").textContent = "Time: " + formatTime(hours) + ":" + formatTime(minutes) + ":" + formatTime(seconds);
+      }, 1000);
+    }
+
+    function formatTime(time) {
+      return (time < 10 ? "0" : "") + time;
+    }
+    
+  </script>
+  <script>
+    function w3_open() {
+      document.getElementById("mySidebar").style.display = "block";
+    }
+  
+    function w3_close() {
+      document.getElementById("mySidebar").style.display = "none";
+    }
+  </script>
+</body>
+</html>
